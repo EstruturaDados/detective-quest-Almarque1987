@@ -1,28 +1,18 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-
-// Desafio Detective Quest
-// Tema 4 - Árvores e Tabela Hash
-// Este código inicial serve como base para o desenvolvimento das estruturas de navegação, pistas e suspeitos.
-// Use as instruções de cada região para desenvolver o sistema completo com árvore binária, árvore de busca e tabela hash.
-
-int main() {
-
-    // 🌱 Nível Novato: Mapa da Mansão com Árvore Binária
-    //
-    // - Crie uma struct Sala com nome, e dois ponteiros: esquerda e direita.
-
+// 🌱 Estrutura da sala
 typedef struct Sala {
     char nome[50];
     struct Sala *esquerda;
     struct Sala *direita;
 } Sala;
 
-    // - Use funções como criarSala(), conectarSalas() e explorarSalas().
-    
-Sala* criarSala(const char *nome) {
+
+// ✅ Função para criar sala
+Sala *criarSala(const char *nome) ;{
     Sala *nova = (Sala*) malloc(sizeof(Sala));
     strcpy(nova->nome, nome);
     nova->esquerda = NULL;
@@ -30,7 +20,7 @@ Sala* criarSala(const char *nome) {
     return nova;
 }
 
-/ Função para explorar a mansão
+// ✅ Função para explorar a mansão
 void explorarSalas(Sala *atual) {
     char opcao;
 
@@ -48,6 +38,7 @@ void explorarSalas(Sala *atual) {
             printf(" (e) Ir para esquerda\n");
         if (atual->direita != NULL)
             printf(" (d) Ir para direita\n");
+
         printf(" (s) Sair\n");
         printf("Opção: ");
         scanf(" %c", &opcao);
@@ -65,9 +56,10 @@ void explorarSalas(Sala *atual) {
     }
 }
 
-    // - A árvore pode ser fixa: Hall de Entrada, Biblioteca, Cozinha, Sótão etc.
-    
-  // Criando a árvore da mansão
+// ✅ Função main (programa principal)
+int main() {
+
+    // Criando a árvore da mansão
     Sala *hall = criarSala("Hall de Entrada");
 
     hall->esquerda = criarSala("Sala de Estar");
@@ -79,9 +71,7 @@ void explorarSalas(Sala *atual) {
     hall->direita->esquerda = criarSala("Despensa");
     hall->direita->direita = criarSala("Jardim");
 
-    // - O jogador deve poder explorar indo à esquerda (e) ou à direita (d).
-    
-// Iniciando exploração
+    // Iniciando exploração
     explorarSalas(hall);
 
     return 0;
