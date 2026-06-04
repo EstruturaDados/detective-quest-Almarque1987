@@ -116,6 +116,4 @@ void explorarSalas(Sala *atual) {
     // - Em caso de colisão, use lista encadeada para tratar.
     // - Modularize com funções como inicializarHash(), buscarSuspeito(), listarAssociacoes().
 
-    return 0;
-}
-
+  
