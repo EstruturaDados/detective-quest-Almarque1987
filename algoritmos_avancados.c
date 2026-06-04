@@ -1,4 +1,7 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 
 // Desafio Detective Quest
 // Tema 4 - Árvores e Tabela Hash
@@ -10,9 +13,80 @@ int main() {
     // 🌱 Nível Novato: Mapa da Mansão com Árvore Binária
     //
     // - Crie uma struct Sala com nome, e dois ponteiros: esquerda e direita.
+
+typedef struct Sala {
+    char nome[50];
+    struct Sala *esquerda;
+    struct Sala *direita;
+} Sala;
+
     // - Use funções como criarSala(), conectarSalas() e explorarSalas().
+    
+Sala* criarSala(const char *nome) {
+    Sala *nova = (Sala*) malloc(sizeof(Sala));
+    strcpy(nova->nome, nome);
+    nova->esquerda = NULL;
+    nova->direita = NULL;
+    return nova;
+}
+
+/ Função para explorar a mansão
+void explorarSalas(Sala *atual) {
+    char opcao;
+
+    while (atual != NULL) {
+        printf("\n📍 Você está em: %s\n", atual->nome);
+
+        // Se for folha
+        if (atual->esquerda == NULL && atual->direita == NULL) {
+            printf("🔚 Você chegou ao fim deste caminho!\n");
+            return;
+        }
+
+        printf("Escolha:\n");
+        if (atual->esquerda != NULL)
+            printf(" (e) Ir para esquerda\n");
+        if (atual->direita != NULL)
+            printf(" (d) Ir para direita\n");
+        printf(" (s) Sair\n");
+        printf("Opção: ");
+        scanf(" %c", &opcao);
+
+        if (opcao == 'e' && atual->esquerda != NULL) {
+            atual = atual->esquerda;
+        } else if (opcao == 'd' && atual->direita != NULL) {
+            atual = atual->direita;
+        } else if (opcao == 's') {
+            printf("🚪 Saindo da exploração...\n");
+            break;
+        } else {
+            printf("❌ Opção inválida!\n");
+        }
+    }
+}
+
     // - A árvore pode ser fixa: Hall de Entrada, Biblioteca, Cozinha, Sótão etc.
+    
+  // Criando a árvore da mansão
+    Sala *hall = criarSala("Hall de Entrada");
+
+    hall->esquerda = criarSala("Sala de Estar");
+    hall->direita = criarSala("Cozinha");
+
+    hall->esquerda->esquerda = criarSala("Biblioteca");
+    hall->esquerda->direita = criarSala("Sala Secreta");
+
+    hall->direita->esquerda = criarSala("Despensa");
+    hall->direita->direita = criarSala("Jardim");
+
     // - O jogador deve poder explorar indo à esquerda (e) ou à direita (d).
+    
+// Iniciando exploração
+    explorarSalas(hall);
+
+    return 0;
+}
+
     // - Finalize a exploração com uma opção de saída (s).
     // - Exiba o nome da sala a cada movimento.
     // - Use recursão ou laços para caminhar pela árvore.
